@@ -157,6 +157,60 @@
                 }
             },
             "response": []
+        },
+        {
+            "name": "Bulk Create Users",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "[\n    {\n        \"name\": \"Bulk User 1\",\n        \"email\": \"bulk1@example.com\",\n        \"age\": 25\n    },\n    {\n        \"name\": \"Bulk User 2\",\n        \"email\": \"bulk2@example.com\",\n        \"age\": 26\n    }\n]"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/users/bulk",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "users",
+                        "bulk"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Bulk Update Users",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "[\n    {\n        \"id\": 1,\n        \"name\": \"Updated Bulk User 1\",\n        \"email\": \"bulk1@example.com\",\n        \"age\": 26\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Updated Bulk User 2\",\n        \"email\": \"bulk2@example.com\",\n        \"age\": 27\n    }\n]"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/users/bulk",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "users",
+                        "bulk"
+                    ]
+                }
+            },
+            "response": []
         }
     ],
     "variable": [

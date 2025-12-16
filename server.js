@@ -18,12 +18,15 @@ app.use('/users', userRoutes);
 const fs = require('fs');
 const path = require('path');
 const { pool } = require('./config/db');
+const { initWorker } = require('./workers/userWorker');
 
 const startServer = async () => {
     try {
         const initSql = fs.readFileSync(path.join(__dirname, 'db', 'init.sql'), 'utf8');
         await pool.query(initSql);
         console.log('Database initialized successfully');
+
+        initWorker();
 
         app.listen(port, () => {
             console.log(`Server running on port ${port}`);

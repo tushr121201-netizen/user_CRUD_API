@@ -1,7 +1,8 @@
 const db = require('../config/db');
 const redisClient = require('../config/redis');
+const { userQueue } = require('../config/queue');
 
-const CACHE_EXPIRATION = 3600; 
+const CACHE_EXPIRATION = 3600;
 const createUser = async (req, res) => {
     try {
         const { name, email, age } = req.body;
@@ -114,10 +115,49 @@ const listUsers = async (req, res) => {
     }
 };
 
+const bulkCreateUsers = async (req, res) => {
+    try {
+        const users = req.body;
+        if (!Array.isArray(users) || users.length === 0) {
+            return res.status(400).json({ error: 'Input should be a non-empty array of users' });
+        }
+
+        const job = await userQueue.add('bulk-create', { users });
+        res.status(202).json({
+            message: 'Bulk creation job accepted',
+            jobId: job.id
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
+
+const bulkUpdateUsers = async (req, res) => {
+    try {
+        const users = req.body;
+        if (!Array.isArray(users) || users.length === 0) {
+            return res.status(400).json({ error: 'Input should be a non-empty array of users' });
+        }
+
+        const job = await userQueue.add('bulk-update', { users });
+        res.status(202).json({
+            message: 'Bulk update job accepted',
+            jobId: job.id
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
+
 module.exports = {
     createUser,
     getUserById,
     updateUser,
     deleteUser,
-    listUsers
+    deleteUser,
+    listUsers,
+    bulkCreateUsers,
+    bulkUpdateUsers
 };
