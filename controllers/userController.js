@@ -1,8 +1,7 @@
 const db = require('../config/db');
 const redisClient = require('../config/redis');
 
-const CACHE_EXPIRATION = 3600; // 1 hour
-
+const CACHE_EXPIRATION = 3600; 
 const createUser = async (req, res) => {
     try {
         const { name, email, age } = req.body;
@@ -12,8 +11,6 @@ const createUser = async (req, res) => {
         );
         const newUser = result.rows[0];
 
-        // Invalidate list cache if needed, or just let it expire. 
-        // Here we might not cache the list heavily or use smarter invalidation.
 
         res.status(201).json(newUser);
     } catch (err) {
