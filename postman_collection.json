@@ -1,6 +1,7 @@
 {
     "info": {
         "name": "CRUD API",
+        "description": "Postman collection for User CRUD API with Bulk Operations. Hosted at https://user-crud-api-s7sw.onrender.com",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "item": [
