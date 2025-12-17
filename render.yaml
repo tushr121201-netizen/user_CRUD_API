@@ -1,4 +1,8 @@
 services:
+  - type: redis
+    name: crud-redis
+    plan: free
+    ipAllowList: [] # Allow all IPs for internal connection
   - type: web
     name: crud-api
     env: node
